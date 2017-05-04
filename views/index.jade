@@ -1,0 +1,44 @@
+extends layout
+
+block content
+	h1!= title
+	p Welcome to #{title}
+	a(href='google.com') Google
+	a(class='button' href='http://google.com') Google
+	a(class='button', href='http://google.com') Google
+	h2 Unbuffered Code
+	-var url ='http://www.google.com'
+	a(href=url) Link
+	- for(var i=0; i<3; i++)
+		li item #{i}
+
+	h2 Buffered Code
+	p= 'This code is' + ' <escaped>!'
+	h2 Unescaped Buffered Code
+	p!= 'This code is' + ' <escaped>!'
+	p!= 'This code is' + ' <strong>not</strong> escaped!'
+	- var user = { description: 'foo bar baz' }
+	- var authorised = false
+	#user
+	if user.description
+		h2.green Description
+		p.description= user.description
+	else if authorised
+		h2.blue Description
+		p.description.
+			User has no description,
+			why not add one...
+	else
+		h2.red Description
+		p.description User has no description
+	h2 迭代器
+	h3 each
+	ul
+		each val, index in ['one', 'two', 'three']
+			li= index + ': ' + val
+	h3 while
+	- var n = 0
+	ul
+		while n < 4
+			li= n++
+	include footer.jade
